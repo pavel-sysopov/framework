@@ -198,10 +198,11 @@ class UnitTest(object):
                 if test in sorted_tests:
                     found_tests = True
                     tests_to_execute.append(test)
-                elif test in short_names:
+                elif any(short_name.startswith(test) for short_name in short_names):
+                    # Find associated fullpath of shortname
                     for sorted_test in sorted_tests:
                         filename = os.path.split(sorted_test)[1]
-                        if test.startswith(filename):
+                        if filename.startswith(test) or test.startswith(filename):
                             tests_to_execute.append(sorted_test)
                             found_tests = True
                 else:
